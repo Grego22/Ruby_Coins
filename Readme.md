@@ -1,0 +1,1 @@
+##  Sinatra App the demonstrates the basic features of cryptocurrency, "Grego Coin."
