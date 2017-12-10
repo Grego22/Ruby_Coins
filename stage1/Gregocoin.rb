@@ -16,7 +16,7 @@ BALANCES = {
 
  post "/users" do 
     name = params['name']
-    BALANCE[name] ||= 0
+    BALANCES[name] ||= 0
     puts BALANCES.to_s.yellow
     
     "OK"
@@ -28,7 +28,6 @@ BALANCES = {
     raise unless BALANCES[from] >= amount
     BALANCES[from] -= amount
     BALANCES[to] += amount
-    puts BALANCES.to_s.yellow
-    
+    puts BALANCES.to_s.yellow    
     "OK"
 end
