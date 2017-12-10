@@ -5,6 +5,9 @@ BALANCES = {
     'Grego' => 1_000_000,
 }
 
+PASSWORDS = {
+    'grego' => 'jollyroger13'
+}
  # @param user
 
  get "/balance" do
