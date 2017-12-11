@@ -38,10 +38,22 @@ every(3.seconds) do
     #every 3 seconds, going to iterate over all "my peers"
     #iterate through each key (peer_port)
     # going to gossip with each peer_port
-    Client.gossp(peer_port, JSON.dump(STATE))
-    #
-    end 
+        begin
+          their_state = Client.gossp(peer_port, JSON.dump(STATE))
+          #they cant read my state, so i turned it to a JSON
+          update_state(JSON.parse(their_state))
+        rescue Faraday::ConnectionFailed => e
+          puts e
+          STATE.delete(peer_port)
+        end
+      end 
+
+    render_state
+    #every time im done gossiping, i want to show my state
 end
 
 post '/gossip' do
+    their_state = params['state']
+    update_state(JSON.parse(their_state))
+    JSON.dump(STATE)
 end
