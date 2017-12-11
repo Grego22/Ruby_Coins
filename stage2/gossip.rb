@@ -28,8 +28,19 @@ every(7.seconds) do
 end
 
 every(3.seconds) do
-    render_state
-    
+    STATE.dup.each_key do |peer_port|
+    #duplicating to avoid concurrency issues
+        next if peer_port = PORT
+        #(dont want to gossip with myself)
+
+        puts "Gossiping with #{peer_port} ..... chat, chat, 
+        getting good gossip."
+    #every 3 seconds, going to iterate over all "my peers"
+    #iterate through each key (peer_port)
+    # going to gossip with each peer_port
+    Client.gossp(peer_port, JSON.dump(STATE))
+    #
+    end 
 end
 
 post '/gossip' do
