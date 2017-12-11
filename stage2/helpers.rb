@@ -14,4 +14,16 @@ def render_state
         puts "#{port.to_s.green} currently likes #{movie.yellow}"
     end
     puts "-" * 40
-end    
+end
+
+
+def update_state(update)
+    update.each do |port, (movie, version_number)
+     next if port.nil?   
+        if [movie, version_number].any?(&:nil?)
+            STATE[port] || = nil
+        else 
+            STATE[port] = [STATE[port], [movie]].compacy.max_by(&:last)
+        end
+    end
+end
